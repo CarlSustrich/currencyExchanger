@@ -21,7 +21,12 @@ function populateCurrencies(response, number) {
 }
 
 function printError(response) {
-
+  const results = document.getElementById('results');
+  results.innerText = null;
+  const p = document.createElement('p');
+  const phrase = `Error code: ${response[0].status}. ${response[1]['error-type']} `;
+  p.append(phrase);
+  results.append(p);
 }
 
 function manageFormInput() {

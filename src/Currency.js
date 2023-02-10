@@ -12,7 +12,7 @@ export class Currency {
         }
       });
 
-      xhr.open('GET', `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`, true);
+      xhr.open('GET', `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USzD`, true);
       xhr.send();
     });
 
