@@ -18,6 +18,13 @@ function populateCurrencies(response, number) {
 
   const spot = document.getElementById(`spot${number}`);
   spot.append(select);
+
+  if (number === 2) {
+    const effectiveTime = document.getElementById('effectiveTime');
+    const p = document.createElement('p');
+    p.innerText = `Exchange rates accurate as of ${response['time_last_update_utc']}`;
+    effectiveTime.append(p);
+  }
 }
 
 function printError(response) {
