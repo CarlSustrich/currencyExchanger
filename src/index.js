@@ -22,7 +22,7 @@ function populateCurrencies(response, number) {
   if (number === 2) {
     const effectiveTime = document.getElementById('effectiveTime');
     const p = document.createElement('p');
-    p.innerText = `Exchange rates accurate as of ${response['time_last_update_utc']}`;
+    p.innerText = `Exchange rates accurate as of ${new Date(response['time_last_update_unix']*1000)}`;
     effectiveTime.append(p);
   }
 }
