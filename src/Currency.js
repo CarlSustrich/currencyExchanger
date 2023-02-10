@@ -8,14 +8,14 @@ export class Currency {
         if (this.status === 200) {
           resolve(json);
         } else {
-          reject([this, json])
+          reject([this, json]);
         }
       });
 
       xhr.open('GET', `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`, true);
       xhr.send();
     });
-    
+
     return promise;
 
     // return fetch (`https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/latest/USD`)
