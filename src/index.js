@@ -3,6 +3,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import { Currency } from './Currency.js';
+import { conversionLogic } from './conversionLogic.js'
 
 function populateCurrencies(response, number) {
   let select = document.createElement('select');
@@ -28,8 +29,8 @@ function manageFormInput() {
   let fromCurrencyRate = Number(document.getElementById('fromCurrency option:checked').class);
   let toCurrency =  document.getElementById('toCurrency option:checked').innerText;
   let toCurrencyRate = Number(document.getElementById('toCurrency option:checked').class);
-  let finalValue = conversionLogic(value, fromCurrency, fromCurrencyRate, toCurrency, toCurrencyRate)
-  updateUI(value, fromCurrencyRate, toCurrencyRate, finalValue);
+  let finalValue = conversionLogic(value, fromCurrencyRate, toCurrencyRate);
+  updateUI(value, fromCurrency, toCurrency, finalValue);
 }
 
 function updateUI(value, fromCurrency, toCurrency, finalValue) {
