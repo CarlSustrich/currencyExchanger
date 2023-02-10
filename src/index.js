@@ -7,24 +7,30 @@ import { conversionLogic } from './conversionLogic.js';
 
 function populateCurrencies(response, number) {
   const select = document.createElement('select');
-  number === 1 ? select.id = `fromCurrency`: select.id = `toCurrency`;
 
-  for (const [key, value] of Object.entries(response.conversion_rates)) {
+  if (number === 1) {
+    select.id = 'fromCurrency';
+    for (const [key, value] of Object.entries(response.conversion_rates)) {
+      const opt = document.createElement('option');
+      opt.innerText = key;
+      opt.value = value;
+      select.append(opt);
+    }
+  } else {
+    select.id = 'toCurrency';
     const opt = document.createElement('option');
-    opt.innerText = key;
-    opt.value = value;
+    opt.innerText = '--Select a Currency--';
     select.append(opt);
+    for (const [key, value] of Object.entries(response.conversion_rates)) {
+      const opt = document.createElement('option');
+      opt.innerText = key;
+      opt.value = value;
+      select.append(opt);
+    }
   }
 
   const spot = document.getElementById(`spot${number}`);
   spot.append(select);
-
-  if (number === 2) {
-    const effectiveTime = document.getElementById('effectiveTime');
-    const p = document.createElement('p');
-    p.innerText = `Exchange rates accurate as of ${new Date(response['time_last_update_unix']*1000)}`;
-    effectiveTime.append(p);
-  }
 }
 
 function printError(response) {
@@ -49,10 +55,12 @@ function manageFormInput() {
 function updateUI(value, fromCurrency, toCurrency, finalValue) {
   const results = document.getElementById('results');
   results.innerText = null;
-  const p = document.createElement('p');
-  const phrase = `${value} ${fromCurrency} is equivalent to ${finalValue} ${toCurrency}`;
-  p.append(phrase);
-  results.append(p);
+  if (finalValue) {
+    const p = document.createElement('p');
+    const phrase = `${value} ${fromCurrency} is equivalent to ${finalValue} ${toCurrency}`;
+    p.append(phrase);
+    results.append(p);
+  }
 }
 
 window.onload = () => {
