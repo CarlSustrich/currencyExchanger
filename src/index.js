@@ -24,7 +24,7 @@ function printError(response) {
 }
 
 function manageFormInput() {
-  let value = document.getElementById('userAmt').value;
+  let value = Number(document.getElementById('userAmt').value);
   let fromCurrency = document.getElementById('fromCurrency option:checked').innerText;
   let fromCurrencyRate = Number(document.getElementById('fromCurrency option:checked').class);
   let toCurrency =  document.getElementById('toCurrency option:checked').innerText;

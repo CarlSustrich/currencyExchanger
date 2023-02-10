@@ -7,7 +7,7 @@ describe('conversionLogic', () => {
     let toCurrencyRate = 3.6725;
     let value = 15;
     let finalValue = conversionLogic(value, fromCurrencyRate, toCurrencyRate);
-    expect(finalValue).toEqual(55.10)
+    expect(finalValue).toEqual(55.09)
   });
 
 });

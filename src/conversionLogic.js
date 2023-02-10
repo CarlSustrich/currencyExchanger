@@ -1,4 +1,3 @@
 export function conversionLogic(value, fromCurrencyRate, toCurrencyRate) {
-  // let v1inUSD = value*fromCurrencyRate;
-  
+  return Number(((value*fromCurrencyRate)*toCurrencyRate).toFixed(2));
 }
