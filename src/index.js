@@ -37,7 +37,7 @@ function printError(response) {
   const results = document.getElementById('results');
   results.innerText = null;
   const p = document.createElement('p');
-  const phrase = `Error code: ${response[0].status}. ${response[1]['error-type']} `;
+  const phrase = response;
   p.append(phrase);
   results.append(p);
 }
@@ -63,24 +63,31 @@ function updateUI(value, fromCurrency, toCurrency, finalValue) {
   }
 }
 
-window.onload = () => {
-  const promise = Currency.getCurrencyList();
-  promise.then(
-    function(response) {
-      populateCurrencies(response, 1);
-      populateCurrencies(response, 2);
-    },function(response) {
-      printError(response);
-    });
+async function getExchangeRates() {
+  const response = await Currency.getCurrencyList();
+  if( response.result === 'success') {
+    populateCurrencies(response, 1);
+    populateCurrencies(response, 2);
+  } else {
+    printError(response);
+  }
+}
 
-
+function makeObserver() {
+  const targetNode = document.getElementById('currencyExchange');
+  const config = { attributes: false, childList: true, subtree: true};
+  
   const observer = new MutationObserver(mutationList => {
     for (const mutation of mutationList) {
       mutation.target.children[0].addEventListener('change', manageFormInput);
     }
+    observer.disconnect();
   });
-
-  const targetNode = document.getElementById('currencyExchange');
-  const config = { attributes: true, childList: true, subtree: true};
+  
   observer.observe(targetNode, config); 
+}
+
+window.onload = () => {
+  getExchangeRates();
+  makeObserver();
 };
