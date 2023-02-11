@@ -54,10 +54,12 @@ function manageFormInput() {
 
 function updateUI(value, fromCurrency, toCurrency, finalValue) {
   const results = document.getElementById('results');
+  const formattedValue1 = value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+  const formattedValue2 = finalValue.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   results.innerText = null;
   if (finalValue) {
     const p = document.createElement('p');
-    const phrase = `${value} ${fromCurrency} is equivalent to ${finalValue} ${toCurrency}`;
+    const phrase = `${formattedValue1} ${fromCurrency} is equivalent to ${formattedValue2} ${toCurrency}`;
     p.append(phrase);
     results.append(p);
   }
@@ -90,4 +92,5 @@ function makeObserver() {
 window.onload = () => {
   getExchangeRates();
   makeObserver();
+  document.getElementById('userAmt').addEventListener('change', manageFormInput);
 };
