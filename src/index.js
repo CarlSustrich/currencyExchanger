@@ -20,7 +20,13 @@ function populateCurrencies(response, number) {
     select.id = 'toCurrency';
     const opt = document.createElement('option');
     opt.innerText = '--Select a Currency--';
+
+    const opt2 = document.createElement('option');
+    opt2.innerText = 'Invalid Currency';
+    opt.value = 'not a numeric value';
+
     select.append(opt);
+    select.append(opt2);
     for (const [key, value] of Object.entries(response.conversion_rates)) {
       const opt = document.createElement('option');
       opt.innerText = key;
@@ -61,6 +67,11 @@ function updateUI(value, fromCurrency, toCurrency, finalValue) {
     const p = document.createElement('p');
     const phrase = `${formattedValue1} ${fromCurrency} is equivalent to ${formattedValue2} ${toCurrency}`;
     p.append(phrase);
+    results.append(p);
+  } else if (isNaN(finalValue)) {
+    const p = document.createElement('p');
+    const errorResponse = "Youve chosen an invalid or unsupported currency. Please review your selections.";
+    p.append(errorResponse);
     results.append(p);
   }
 }
